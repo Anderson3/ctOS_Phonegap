@@ -1,4 +1,4 @@
-# ctOS [![bitHound Score][bithound-img]][bithound-url]
+# ctOS 
 
 Um "Teste"de Aplicação Phonegap/Cordova que procura "aproximar" do ctOS Watch_Dogs. Um app que aplicada os pluguins básicos Cordova.
 

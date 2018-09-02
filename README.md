@@ -1,22 +1,10 @@
 # ctOS [![bitHound Score][bithound-img]][bithound-url]
 
-A PhoneGap Hello World template
+Um "Teste"de Aplicação Phonegap/Cordova que procura "aproximar" do ctOS Watch_Dogs. Um app que aplicada os pluguins básicos Cordova.
 
 ## Usage
 
-#### PhoneGap CLI
-
-The hello-world template is the default when you create a new application using the [phonegap-cli][phonegap-cli-url].
-
-    phonegap create my-app
-
-Create an app using this template specifically:
-
-    phonegap create my-app --template hello-world
-
-To see a list of other available PhoneGap templates:
-
-    phonegap template list
+Mostra infos referente ao dispositivo mobile.
 
 ## [config.xml][config-xml]
 

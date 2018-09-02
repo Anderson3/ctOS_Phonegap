@@ -1,0 +1,123 @@
+<DOCTYPE html>
+
+
+
+<html lang="pt-br">
+    <head>
+        <title></title>
+
+        <link rel="stylesheet" type="text/css" href="fundo.css">
+        <link rel="stylesheet" type="text/css" href="animate.css">
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <style type="text/css">
+            @font-face {
+                font-family: 'orbitronlight';
+                src: url('orbitron-light-webfont.woff2') format('woff2'),
+                     url('orbitron-light-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+
+            }
+
+            .fonte-especial{font-family: 'Orbitron', 'orbitronlight', 'Trebuchet MS', sans-serif; font-size: 1.5em; color: #75F1E9;}
+            .fonte-titulo{font-family: 'Orbitron', 'orbitronlight', 'Trebuchet MS', sans-serif; color: white;}
+        </style>
+
+
+        <script type="text/javascript">
+
+            function time(){
+                today = new Date;
+                hora = today.getHours();
+                minuto = today.getMinutes();
+                segundo = today.getSeconds();
+
+                document.getElementById("tempo").innerHTML = hora+":"+minuto+":"+segundo;
+                setTimeout('time()', 500);
+            }
+
+            function dia(){
+                now = new Date;
+                dia = now.getDate();
+                mes = now.getMonth();
+                ano = now.getFullYear();
+                document.getElementById("data").innerHTML = dia + "/" + mes + "/" + ano;
+            }
+
+        </script>
+    </head>
+
+    <body onload="dia(); time();">
+        <div id="topo"></div>
+        <div><img src="ctos-branco.png" width="60%"/></div>
+        <div class="info-superior">
+            <div id="data" class="fonte-especial" align="right">...</div>
+            <div id="tempo" class="fonte-especial"  align="right">...</div>
+        </div>
+        <div id="central">
+            <img src="wd-logo.png" id="img-central" align="center" class="animated rotateIn" onclick="alterarImagenCentral();"/>
+        </div>
+        <script>
+            $("#img-central").click(function(){
+            $('#img-central').removeClass();
+            $('#img-central').addClass('animated flip');
+            });
+
+            setInterval(function(){
+                document.getElementById("img-central");
+                $('#img-central').removeClass();
+                $('#img-central').addClass('animated infinite pulse');
+            },3000)
+
+            function alterarImagenCentral(){
+                var i = 0;
+                imagens = new Array(
+                    "wd-logo.png",
+                    "ct-logo.png",
+                    "blume-logo.png",
+                    "deadsec-logo.png"
+                );
+                novaSrc = Math.floor((Math.random() * (4 - 0) + 0));
+
+                if (novaSrc == i) {
+                    i = i+1;
+                };
+
+                document.getElementById("img-central").src = imagens[novaSrc];
+                //document.getElementByClassName("img-central").style.animation = '';
+            }
+
+        </script>
+
+        <br>
+        <br>
+        <br>
+
+        <h3 class="fonte-titulo">Device</h3>
+        <div id="box">
+            <a><img src="btn-device.png" width="30%"/></a>
+            <img src="btn-info.png" width="30%"/>
+            <img src="btn-camera.png" width="30%"/>
+            <img src="btn-gps.png" width="30%"/>
+            <img src="btn-acelerometro.png" width="30%"/>
+        </div>
+
+        <br>
+
+        <h3 class="fonte-titulo">Network</h3>
+        <div id="box">
+            <img src="btn-rede.png" width="30%"/>
+        </div>
+
+        <br>
+        
+        <h3 class="fonte-titulo">Access</h3>
+        <div id="box">
+            <img src="btn-navegador.png" width="30%"/>
+            <img src="btn-shodan.png" width="30%"/>
+            <img src="btn-insecam.png" width="30%"/>
+        </div>
+
+    </body>
+
+</html>

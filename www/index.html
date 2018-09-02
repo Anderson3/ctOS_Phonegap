@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+        <title>ctOS System</title>
+        <link rel="stylesheet" type="text/css" href="fundo.css">
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+
+        <!-- CSS responsável pelo papel de fundo e Fontes-->
+        <style type="text/css">
+            body{
+                background-image: url('fundoctos.png');
+                background-size: 100% 100%; //Para animar comente esta linha...
+                /*background-repeat: repeat-x;
+                /*animation: fundoAnimado 15s linear infinite;*/
+            }
+            
+            @font-face {
+                font-family: 'orbitronlight';
+                src: url('orbitron-light-webfont.woff2') format('woff2'),
+                     url('orbitron-light-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+
+            }
+
+            .fonte-especial{font-family: 'Orbitron', 'orbitronlight', 'Trebuchet MS', sans-serif; font-size: 1.5em; color: #75F1E9;}
+            .fonte-titulo{font-family: 'Orbitron', 'orbitronlight', 'Trebuchet MS', sans-serif; color: white;}
+            .fonte-normal{font-family: 'Orbitron', 'orbitronlight', 'Trebuchet MS', sans-serif; color: white; color: #75F1E9;}
+            .fonte-p{font-family: 'Orbitron', 'orbitronlight', 'Trebuchet MS', sans-serif; color: white; color: #75F1E9; font-size: 0.9em;}
+
+            #img-visor{
+                float: left;
+                background: orange;
+                width: 5%;
+            }
+            #img-visor{
+                margin: 6% 0 0% -6%;
+            }
+
+            #visor{
+                width: 100%;
+                position: relative;
+            }
+            #visor p{
+                text-indent: 20%;
+            }
+
+            #foto{
+              position: absolute;
+              left: 70%;
+            }
+        </style>
+
+        <!-- JS responsável pela função de captura de tempo e horário-->
+        <script type="text/javascript">
+
+            function time(){
+                today = new Date;
+                hora = today.getHours();
+                minuto = today.getMinutes();
+                segundo = today.getSeconds();
+
+                document.getElementById("tempo").innerHTML = hora+":"+minuto+":"+segundo;
+                setTimeout('time()', 500);
+            }
+
+            function dia(){
+                now = new Date;
+                dia = now.getDate();
+                mes = now.getMonth();
+                ano = now.getFullYear();
+                document.getElementById("data").innerHTML = dia + "/" + mes + "/" + ano;
+            }
+
+        </script>
+    </head>
+
+
+
+    <body id="conteudo" onload="dia(); time();">
+        <div id="topo"></div>
+        <div><img src="img/ctos-branco.png" width="60%" class="animated fadeInUp" id="meuid"/></div>
+        <div class="info-superior">
+            <div id="data" class="fonte-especial" align="right">...</div>
+            <div id="tempo" class="fonte-especial"  align="right">...</div>
+        </div>
+
+
+    <main class="app">
+        <div id="deviceready">
+
+            <div id="img-visor">
+                <img src="img/wd-logo.png" width="1000%" id="img-central" align="center" class="animated rotateIn" onclick="alterarImagemCentral(); cleanAll();cleanImg()"/>
+            </div>
+
+            <div id="central">
+                <p class="fonte-normal">- SystemCTOS@Dedsec ></p>
+
+                <div id="visor">
+                  <br>
+                  <img id="foto" src="img/OMG.gif" class="animated flash"/>
+                    <p id="visor1" class="fonte-p">.</p>
+                    <p id="visor2" class="fonte-p">.</p>
+                    <p id="visor3" class="fonte-p">.</p>
+                    <p id="visor4" class="fonte-p">.</p>
+                    <p id="visor5" class="fonte-p">.</p>
+                    <p id="visor6" class="fonte-p">.</p>
+                    <p id="visor7" class="fonte-p">.</p>
+                </div>
+            </div>
+
+
+
+            <!-- JS responsável pelo controle de animação CSS e modificação de imagens-->
+            <script>
+                $("#img-central").click(function(){
+                $('#img-central').removeClass();
+                $('#img-central').addClass('animated flip');
+                });
+
+                setInterval(function(){
+                    document.getElementById("img-central");
+                    $('#img-central').removeClass();
+                    $('#img-central').addClass('animated infinite pulse');
+                },3000)
+
+                function alterarImagemCentral(){
+                    var i = 0;
+                    imagens = new Array(
+                        "wd-logo.png",
+                        "ct-logo.png",
+                        "blume-logo.png",
+                        "deadsec-logo.png"
+                    );
+                    novaSrc = Math.floor((Math.random() * (4 - 0) + 0));
+
+                    if (novaSrc == i) {
+                        i = i+1;
+                    };
+
+                    document.getElementById("img-central").src = 'img/'+imagens[novaSrc];
+                }
+
+            </script>
+
+        
+            <br>
+            
+            <br>
+
+                <h3 class="fonte-titulo">Device</h3>
+                <div id="box">
+                    <a onclick="cleanAll();cleanImg();onDeviceReady();"><img src="img/btn-device.png" width="30%"/></a>
+                    <a onclick="cleanAll();cleanImg();getLanguage();getLocaleName();getDate();"><img src="img/btn-info.png" width="30%"/></a>
+                    <a onclick="capturePhoto();"><img src="img/btn-camera.png" width="30%"/></a>
+                    <a onclick="cleanImg();getPosition()"><img src="img/btn-gps.png" width="30%"/></a>
+                    <a onclick="cleanAll();cleanImg();watchAcceleration()"><img src="img/btn-acelerometro.png" width="30%"/></a>
+                </div>
+
+                <br>
+
+                <h3 class="fonte-titulo">Network</h3>
+                <div id="box">
+                    <a id="networkInfo" onclick="cleanAll();cleanImg();networkInfo();"><img src="img/btn-rede.png" width="30%"/></a>
+                </div>
+
+                <br>
+                
+                <h3 class="fonte-titulo">Access</h3>
+                <div id="box">
+                    <a id="openBrowser" onclick="openBrowser();"><img src="img/btn-navegador.png" width="30%"/></a>
+                    <a onclick="openBrowserSHODAN();"><img src="img/btn-shodan.png" width="30%"/></a>
+                    <a onclick="openBrowserINSECAM();"><img src="img/btn-insecam.png" width="30%"/></a>
+                </div>
+
+        </div>
+    </main>
+
+
+    </body>
+<!--      Code JS                                                                             -->
+    <script type="text/javascript">
+        app.initialize();
+
+
+function onDeviceReady() {
+    document.getElementById("visor1").innerHTML = 'Model: '+device.model;
+    document.getElementById("visor2").innerHTML = 'Platform: '+device.platform;
+    document.getElementById("visor3").innerHTML = 'UUID: '+device.uuid;
+    document.getElementById("visor4").innerHTML = 'Version: '+device.version;
+    document.getElementById("visor5").innerHTML = 'Fabric.: '+device.manufacturer;
+    document.getElementById("visor6").innerHTML = 'S: '+device.serial;
+    document.getElementById("visor7").innerHTML = 'Virtal: '+device.isVirtual;
+}
+function getLanguage(){
+   navigator.globalization.getPreferredLanguage(onSuccess, onError);
+
+   function onSuccess(language) {
+      document.getElementById("visor1").innerHTML = 'language: '+language.value;
+   }
+
+   function onError(){
+      document.getElementById("visor1").innerHTML = 'Error!';
+   }
+}
+function getLocaleName() {
+   navigator.globalization.getLocaleName(onSuccess, onError);
+
+   function onSuccess(locale) {
+       document.getElementById("visor2").innerHTML = 'Local: '+locale.value;
+   }
+
+   function onError(){
+      document.getElementById("visor2").innerHTML = 'Error!';
+   }
+}
+
+function getDate() {
+   var date = new Date();
+
+   var options = {
+      formatLength:'short',
+      selector:'date and time'
+   }
+   navigator.globalization.dateToString(date, onSuccess, onError, options);
+
+   function onSuccess(date) {
+      document.getElementById("visor3").innerHTML = 'Data :'+data.value;
+   }
+
+   function onError(){
+      document.getElementById("getDate").innerHTML = 'Error!';
+   }
+}
+
+function getPosition(){
+   var options = {
+      enableHighAccuracy: true,
+      maximumAge: 3600000
+   }
+
+  var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+
+   function onSuccess(position) {
+        document.getElementById('visor1').innerHTML = 'Latitude: '+position.coords.latitude;         
+        document.getElementById('visor2').innerHTML = 'Longitude: '+position.coords.longitude;        
+        document.getElementById('visor3').innerHTML = 'Altitude: '+position.coords.altitude;         
+        document.getElementById('visor4').innerHTML = 'Accuracy: '+(position.coords.accuracy.toFixed(6));         
+        document.getElementById('visor5').innerHTML = 'Headin: '+position.coords.headin;          
+        document.getElementById('visor6').innerHTML = 'Speed: '+position.coords.speed;                      
+        document.getElementById('visor7').innerHTML = 'TS: '+position.timestamp;                   
+    };
+
+   function onError(error) {
+      alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+   }
+}
+function watchAcceleration(){
+   var accelerometerOptions = {
+      frequency: 3000
+   }
+   var watchID = navigator.accelerometer.watchAcceleration(
+      accelerometerSuccess, accelerometerError, accelerometerOptions);
+
+   function accelerometerSuccess(acceleration) {
+      document.getElementById('visor1').innerHTML = 'Aceler-X: ';
+      document.getElementById('visor2').innerHTML = acceleration.x;
+      document.getElementById('visor3').innerHTML = 'Aceler-Y: ';
+      document.getElementById('visor4').innerHTML = acceleration.y;
+      document.getElementById('visor5').innerHTML = 'Aceler-Z: ';
+      document.getElementById('visor6').innerHTML = acceleration.z;
+      document.getElementById('visor7').innerHTML = 'TS: '+acceleration.timestamp;
+
+      setTimeout(function() {
+         navigator.accelerometer.clearWatch(watchID);
+      }, 10000);
+   };
+
+   function accelerometerError() {
+      alert('onError!');
+   };
+  
+}
+
+function capturePhoto(){
+
+    navigator.camera.getPicture(onSuccess, onFail, { 
+        quality: 50, 
+        destinationType: Camera.DestinationType.DATA_URL,
+        saveToPhotoAlbum: true,
+    });
+
+    function onSuccess(imageData) {
+        cleanAll();
+        var image = document.getElementById('foto');
+        image.style.display = "block";
+        image.src = "data:image/jpeg;base64," + imageData;
+        $('#foto').addClass('animated fadeIn');
+    }
+
+    function onFail(message) {
+        alert("Camera canceled");
+    }
+}
+
+
+document.getElementById("networkInfo").addEventListener("click", networkInfo);
+document.addEventListener("offline", onOffline, false);
+document.addEventListener("online", onOnline, false);
+
+function networkInfo(){
+   var networkState = navigator.connection.type;
+   var states = {};
+   states[Connection.UNKNOWN]  = 'Unknown connection';
+   states[Connection.ETHERNET] = 'Ethernet connection';
+   states[Connection.WIFI]     = 'WiFi connection';
+   states[Connection.CELL_2G]  = 'Cell 2G connection';
+   states[Connection.CELL_3G]  = 'Cell 3G connection';
+   states[Connection.CELL_4G]  = 'Cell 4G connection';
+   states[Connection.CELL]     = 'Cell generic connection';
+   states[Connection.NONE]     = 'No network connection';
+   
+   document.getElementById('visor1').innerHTML = 'Type: '+states[networkState];
+}
+function onOffline() {
+    alert("Connection: offline \n Some functions can not be used without Internet Connection.");
+    var status = 'Offline';
+}
+function onOnline() {
+    var status = 'Online';
+}
+
+
+
+function openBrowserSHODAN() {
+   var url = 'https://www.shodan.io';
+   var target = '_blank';
+   var options = "location = no"
+   var ref = cordova.InAppBrowser.open(url, target, options);
+   
+   ref.addEventListener('loadstart', loadstartCallback);
+   ref.addEventListener('loadstop', loadstopCallback);
+   ref.addEventListener('loaderror', loaderrorCallback);
+   ref.addEventListener('exit', exitCallback);
+
+   function loadstartCallback(event) {
+      console.log('Loading started: '  + event.url)
+   }
+
+   function loadstopCallback(event) {
+      console.log('Loading finished: ' + event.url)
+   }
+
+   function loaderrorCallback(error) {
+      console.log('Loading error: ' + error.message)
+   }
+
+   function exitCallback() {
+      console.log('Browser is closed...')
+   }
+}
+//-----------------------------------------------------------------------------------
+
+function openBrowserINSECAM() {
+   var url = 'http://www.insecam.org/';
+   var target = '_blank';
+   var options = "location = no"
+   var ref = cordova.InAppBrowser.open(url, target, options);
+   
+   ref.addEventListener('loadstart', loadstartCallback);
+   ref.addEventListener('loadstop', loadstopCallback);
+   ref.addEventListener('loaderror', loaderrorCallback);
+   ref.addEventListener('exit', exitCallback);
+
+   function loadstartCallback(event) {
+      console.log('Loading started: '  + event.url)
+   }
+
+   function loadstopCallback(event) {
+      console.log('Loading finished: ' + event.url)
+   }
+
+   function loaderrorCallback(error) {
+      console.log('Loading error: ' + error.message)
+   }
+
+   function exitCallback() {
+      console.log('Browser is closed...')
+   }
+}
+//-----------------------------------------------------------------------------------
+
+function openBrowser() {
+   var url = 'https://duckduckgo.com/';
+   var target = '_blank';
+   var options = "location = no"
+   var ref = cordova.InAppBrowser.open(url, target, options);
+   
+   ref.addEventListener('loadstart', loadstartCallback);
+   ref.addEventListener('loadstop', loadstopCallback);
+   ref.addEventListener('loaderror', loaderrorCallback);
+   ref.addEventListener('exit', exitCallback);
+
+   function loadstartCallback(event) {
+      console.log('Loading started: '  + event.url)
+   }
+
+   function loadstopCallback(event) {
+      console.log('Loading finished: ' + event.url)
+   }
+
+   function loaderrorCallback(error) {
+      console.log('Loading error: ' + error.message)
+   }
+
+   function exitCallback() {
+      console.log('Browser is closed...')
+   }
+   //-----------------------------------------------------------------------------------
+}
+
+
+function teste(){
+
+    internet.getStatus(function(status) {
+       switch(status) {
+           case internet.CONNECTED: alert('Connected !'); break;
+           case internet.DISCONNECTED: alert('Disconnected...');
+       }
+    });
+
+}
+
+
+function cleanAll(){
+  document.getElementById("visor1").innerHTML = '.';
+  document.getElementById("visor2").innerHTML = '.';
+  document.getElementById("visor3").innerHTML = '.';
+  document.getElementById("visor4").innerHTML = '.';
+  document.getElementById("visor5").innerHTML = '.';
+  document.getElementById("visor6").innerHTML = '.';
+  document.getElementById("visor7").innerHTML = '.';
+}
+function dellAll(){
+  document.getElementById("visor1").innerHTML = '';
+  document.getElementById("visor2").innerHTML = '';
+  document.getElementById("visor3").innerHTML = '';
+  document.getElementById("visor4").innerHTML = '';
+  document.getElementById("visor5").innerHTML = '';
+  document.getElementById("visor6").innerHTML = '';
+  document.getElementById("visor7").innerHTML = '';
+}
+function cleanImg(){
+  document.getElementById("foto").src = '';
+}
+
+
+$('#openBrowser').on('touchend',function(){
+
+  var i = 2;
+  var fundo =  document.getElementById('conteudo') 
+  fundo.style.background = imagens[i]+"')";
+
+});
+
+function teste(){
+  document.getElementById('conteudo').style.background = "url('img/paper3.jpg') 100% 100%";
+}
+
+$('#meuid').on('touchstart',function(){
+    //Inicia o processo de gravação
+});
+$('#meuid').on('touchend',function(){
+  //Para o processo de gravação
+    alert("Sistema ctOS \n  App ctOS - Watch_Dogs \n     - Funções sobre o Dispositivo.\n     - Acesso com Navegação.\nVersão beta-0.2\nDeveloped --- A^3");
+});
+
+    </script>
+
+    </script>
+
+</html>

@@ -1,0 +1,73 @@
+
+
+*{
+	margin:0;
+	padding: 0;
+}
+
+
+//-------------------------font-face-----------------------------------
+@font-face {
+    font-family: 'orbitronlight';
+    src: url('css/fontes/orbitron-light-webfont.woff2') format('woff2'),
+         url('css/fontes/orbitron-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.fonte-especial{font-family: 'Orbitron', 'orbitronlight', 'Trebuchet MS', sans-serif; font-size: 1.5em; color: #75F1E9;}
+.fonte-titulo{font-family: 'Orbitron', 'orbitronlight', 'Trebuchet MS', sans-serif; color: white;}
+//---------------------------------------------------------------------
+
+
+body{
+	background-image: url('fundo-ctos.jpg');
+	background-size: 100% 100%; //Para animar comente esta linha...
+	/*background-repeat: repeat-x;
+	/*animation: fundoAnimado 15s linear infinite;*/
+}
+
+#topo{
+	width: 100%;
+	padding: 7% 0%;
+	border-bottom: solid 5px #75F1E9;
+	background: #0C0C0C;
+}
+
+.info-superior{
+	margin: 0 4% 0 0;
+}
+
+#central{
+	margin: 0 0 0 25%;
+	padding: 3% 0;
+	width: 70%;
+	border: solid #75F1E9;
+	background: url('om.jpg');
+	background-size: 100% 100%;
+}
+#central img{
+	width: 70%;
+	margin: 0px 0 0 -44%;
+}
+
+#box{
+	width: 90%;
+	padding: 2.5%;
+	border: solid 2px #75F1E9;
+	border-left: 0px;
+}
+
+/*@keyframes fundoAnimado {
+	0% {
+		background-position: 0% 0%
+	}
+	50% {
+		
+	}
+	100% {
+		background-position: 100% 0%
+	}
+}
+
